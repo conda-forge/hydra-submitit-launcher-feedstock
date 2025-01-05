@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: e14c8eb46d020fac60ba25f82bcc368dc55851d2683dc95c88631ffcf15e4a34
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - setuptools
     - wheel
     - read-version
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - hydra-core >=1.1.0.dev7
     - submitit >=1.3.3
 
@@ -35,6 +35,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://hydra.cc/docs/plugins/submitit_launcher/
